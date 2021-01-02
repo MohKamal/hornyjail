@@ -55,6 +55,7 @@ namespace Showcase\Controllers{
             $category = Session::retrieve('filter');
             $data = array();
             $count = 20;
+                        
             if($category == null)
                 $data = DB::table('pictures')->select()->get();
             else{
