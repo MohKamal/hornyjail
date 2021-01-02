@@ -14,7 +14,7 @@ namespace Showcase\Framework\HTTP\Routing {
     {
         public function __construct()
         {
-            //todo
+            //Todo
         }
 
         /**
@@ -44,6 +44,34 @@ namespace Showcase\Framework\HTTP\Routing {
         function json($data){
             header('Content-Type: application/json');
             return json_encode($data);
+        }
+
+        /**
+         * Return a 404 code
+         */
+        function notFound(){
+            return http_response_code(404);
+        }
+
+        /**
+         * Return a 200 code
+         */
+        function OK(){
+            return http_response_code(200);
+        }
+
+        /**
+         * Return a 200 code
+         */
+        function unauthorized(){
+            return http_response_code(403);
+        }
+
+        /**
+         * Return a 500 code
+         */
+        function internal(){
+            return http_response_code(500);
         }
     }
 }

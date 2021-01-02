@@ -9,33 +9,61 @@ namespace Showcase\Framework\Session{
         /**
          * Create a session message
          */
-        public static function Create($message, $message_type='notice'){
-            session_start(); 
+        public static function create($message, $message_type='info'){
+            if (session_status() == PHP_SESSION_NONE)
+                session_start();
+            self::clear();
             if($message){
-                switch($message_type){ 
-                case 'success': $_SESSION['sess_flash_message'][] = '<p class="isa_success">'. $message .'</p>';break;
-                case 'error': $_SESSION['sess_flash_message'][] = '<p class="isa_error">'. $message .'</p>';break;
-                case 'notice': $_SESSION['sess_flash_message'][] = '<p class="isa_info">'. $message .'</p>';break;
-                case 'warning': $_SESSION['sess_flash_message'][] = '<p class="isa_warning">'. $message .'</p>';break;
-                default: $_SESSION['sess_flash_message'][] = $message;
+                $html = "<style>
+                .info, .success, .warning, .error, .validation {
+                    border: 1px solid;
+                    margin: 10px 0px;
+                    padding: 15px 10px 15px 50px;
+                    background-repeat: no-repeat;
+                    background-position: 10px center;
                 }
+                .info {
+                    color: #00529B;
+                    background-color: #BDE5F8;
+                    background-image: url('https://i.imgur.com/ilgqWuX.png');
+                }
+                .success {
+                    color: #4F8A10;
+                    background-color: #DFF2BF;
+                    background-image: url('https://i.imgur.com/Q9BGTuy.png');
+                }
+                .warning {
+                    color: #9F6000;
+                    background-color: #FEEFB3;
+                    background-image: url('https://i.imgur.com/Z8q7ww7.png');
+                }
+                .error{
+                    color: #D8000C;
+                    background-color: #FFBABA;
+                    background-image: url('https://i.imgur.com/GnyDvKN.png');
+                }
+                </style>
+                <p class='$message_type'>$message</p>";
+                $_SESSION['sess_flash_message'][] = $html;
             }
         }
-
+        
         /**
          * Get message html
          */
-        public static function Show(){
-            if(!isset($_SESSION))
-                session_start(); 
+        public static function show(){
+            if (!isset($_SESSION)) {
+                if (session_status() == PHP_SESSION_NONE)
+                    session_start();
+            }
             if(array_key_exists('sess_flash_message', $_SESSION) && !empty($_SESSION['sess_flash_message']) && $_SESSION['sess_flash_message'] != null)
-                return $_SESSION['sess_flash_message'];
+                return $_SESSION['sess_flash_message'][0];
         }
 
         /**
          * Clear session
          */
-        public static function Clear(){
+        public static function clear(){
             $_SESSION['sess_flash_message'] = null;
         }
     }

@@ -29,7 +29,7 @@ namespace Showcase\Controllers{
             $rand_keys = array_rand($lines, 1);
             Search::GetPictures($lines[$rand_keys]);
             //get categories from db
-            $categories = DB::query("SELECT DISTINCT category FROM pictures");
+            $categories = DB::table('pictures')->select('category')->distinct()->get();
             $rand_keys = array_rand($categories, 1);
             Session::store('filter', $categories[$rand_keys]);
             return self::response()->redirect('/');

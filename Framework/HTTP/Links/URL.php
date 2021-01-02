@@ -41,12 +41,10 @@ namespace Showcase\Framework\HTTP\Links{
          * 
          * @param string url to be redirected to
          */
-        function Redirect($url, $permanent = false)
+        static function Redirect($url, $permanent = false)
         {
             if (headers_sent() === false)
-            {
                 header('Location: ' . URL::BASE() . $url, true, ($permanent === true) ? 301 : 302);
-            }
 
             exit();
         }

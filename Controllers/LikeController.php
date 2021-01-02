@@ -6,6 +6,7 @@ namespace Showcase\Controllers{
     use \Showcase\Framework\HTTP\Links\URL;
     use \Showcase\Models\Picture;
     use \Showcase\Models\Like;
+    use \Showcase\Framework\Database\DB;
 
     class LikeController extends BaseController{
 
@@ -30,13 +31,8 @@ namespace Showcase\Controllers{
          */
         static function store($request){
             if(Validator::Validate($request->getBody(), ['id'])){
-                $like = new Like();
-                $like->where([
-                    'picture_id' => $request->getBody()['id'],
-                    'ipaddress' => $request->remoteAddr
-                ]);
-                $pic = new Picture();
-                $pic->get($request->getBody()['id']);
+                $like = DB::model('Like')->select()->where('picture_id', $request->getBody()['id'])->where('ipaddress', $request->remoteAddr)->first();
+                $pic = DB::model('Picture')->select()->where('id', $request->getBody()['id'])->first();
                 if ($like->id !=  $request->getBody()['id'] && $like->ipaddress !=  $request->remoteAddr) {
                     $like = new Like();
                     $like->picture_id = $request->getBody()['id'];

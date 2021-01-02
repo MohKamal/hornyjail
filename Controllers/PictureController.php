@@ -6,6 +6,7 @@ namespace Showcase\Controllers{
     use \Showcase\Framework\IO\Debug\Log;
     use \Showcase\Models\Picture;
     use \Showcase\Framework\Session\Session;
+    use \Showcase\Framework\Database\DB;
 
     class PictureController extends BaseController{
 
@@ -37,8 +38,7 @@ namespace Showcase\Controllers{
 
         static function viewed($request){
             if(Validator::Validate($request->getBody(), ['id'])){
-                $pic = new Picture();
-                $pic->get($request->getBody()['id']);
+                $pic = DB::model('Picture')->select()->where('id', $request->getBody()['id'])->first();
                 $pic->views += 1;
                 $pic->save();
 
@@ -56,11 +56,9 @@ namespace Showcase\Controllers{
             $data = array();
             $count = 20;
             if($category == null)
-                $data = Picture::toList();
+                $data = DB::table('pictures')->select()->get();
             else{
-                $data = Picture::toList([
-                    'category' => $category['category']
-                ]);
+                $data = DB::table('pictures')->select()->where('category', $category['category'])->get();
             }
     
             $end = $page * $count;

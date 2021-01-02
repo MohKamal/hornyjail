@@ -68,23 +68,33 @@ namespace Showcase\Framework\Database\Models {
         }
 
         /**
-         * Get an object by id
-         * @param mixte id value
-         * @return \Showcase\Framework\Database\Models\BaseModel
+         * Get the migration table name
+         * 
+         * @return string table name
          */
-        public function get($id){
-            $record = $this->db->getByIdColumn($this->migration, ["name" => $this->idDetails["name"], "value" => $id]);
-            if($record != null){
-                $class_vars = get_object_vars($this);
-                foreach($class_vars as $key => $value){
-                    if(array_key_exists($key, $record)){
-                        $this->{$key} = $record[$key];
-                        if($key == $this->idDetails["name"])
-                           $this->idDetails["value"] =  $record[$key];
-                    }
+        public function tableName(){
+            $file = dirname(__FILE__) . '/../../../Database/Migrations/' . $this->migration . '.php';
+            if(file_exists($file))
+            {
+                require_once $file;
+
+                // get the file name of the current file without the extension
+                // which is essentially the class name
+                $class = '\Showcase\Database\Migrations\\' . basename($file, '.php');
+                if (class_exists($class))
+                {
+                    $table = new $class;
+                    $table->handle();
+                    return $table->name;
                 }
             }
-            return $this;
+
+            return '';
+        }
+
+        public function className(){
+            $reflect = new \ReflectionClass($this);
+            return $reflect->getShortName();
         }
 
         /**
@@ -138,10 +148,21 @@ namespace Showcase\Framework\Database\Models {
          */
         public function save(){
             $class_vars = get_object_vars($this);
-            if(!array_key_exists("value", $this->idDetails))
-                $this->{$this->idDetails["name"]} = $this->db->insertInto($this->migration, $class_vars);
-            else
-                $this->db->update($this->migration, $this->idDetails, $class_vars);
+            if(empty($this->{$this->idDetails["name"]})){
+                if(array_key_exists('created_at', $class_vars) && array_key_exists('updated_at', $class_vars)){
+                    $this->created_at = date("Y-m-d H:i:s");
+                    $this->updated_at = date("Y-m-d H:i:s");
+                }
+                if (array_key_exists("deleted_at", $class_vars))
+                    $this->active = true;
+
+                $class_vars = get_object_vars($this);
+                unset($class_vars['migration']);
+                unset($class_vars['idDetails']);
+                unset($class_vars['db']);
+                DB::model($this->className())->insert($class_vars)->run();
+            }else
+                DB::model($this->className())->update($class_vars)->where($this->idDetails["name"], $this->{$this->idDetails["name"]})->run();
 
             return $this;
         }
@@ -156,35 +177,13 @@ namespace Showcase\Framework\Database\Models {
                 $this->deleted_at = date("Y-m-d H:i:s");
                 $this->active = 0;
                 $class_vars = get_object_vars($this);
-                $this->db->update($this->migration, $this->idDetails, $class_vars);
-            }else{
-                return $this->db->delete($this->migration, $this->idDetails);
+                unset($class_vars['migration']);
+                unset($class_vars['idDetails']);
+                unset($class_vars['db']);
+                return DB::model($this->className())->update($class_vars)->where($this->idDetails["name"], $this->{$this->idDetails["name"]})->run();
             }
-        }
-
-        /**
-         * Get list of this model
-         * @return array \Showcase\Framework\Database\Models\BaseModel
-         */
-        public static function toList(array $columns=array()){
-            $class = get_called_class();
-            $model = new $class();
-            $db = new DB();
-            $records = $db->getList($model->migration, $columns);
-            if(count($records) > 0){
-                $data = array();
-                foreach($records as $record){
-                    $obj = new $class();
-                    $class_vars = get_object_vars($obj);
-                    foreach($class_vars as $key => $value){
-                        if (array_key_exists($key, $class_vars) && array_key_exists($key, $record))
-                            $obj->{$key} = $record[$key];
-                    }
-                    $data[] =$obj;
-                }
-                return $data;
-            }
-            return array();
+            else
+                return DB::model($this->className())->delete()->where($this->idDetails["name"], $this->{$this->idDetails["name"]})->run();
         }
 
         /**

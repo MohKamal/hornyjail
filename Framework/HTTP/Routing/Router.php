@@ -5,7 +5,6 @@ namespace Showcase\Framework\HTTP\Routing {
     use \Showcase\AutoLoad;
     use \Showcase\Framework\HTTP\Links\URL;
     use \Showcase\Framework\Views\View;
-    use \Showcase\Framework\IO\Debug\Log;
 
     /**
      * More at : https://medium.com/the-andela-way/how-to-build-a-basic-server-side-routing-system-in-php-e52e613cf241
@@ -70,6 +69,7 @@ namespace Showcase\Framework\HTTP\Routing {
                 $this->defaultRequestHandler();
                 return;
             }
+
             $method = $methodDictionary[$formatedRoute];
             echo call_user_func_array($method, array($this->request));
         }
