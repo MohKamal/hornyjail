@@ -18,32 +18,32 @@
 	  <style>
         @font-face {
             font-family: 'FontAwesome';
-            src: url('/res.php?sheet=/fonts/fontawesome-webfont.eot');
-            src: url('/res.php?sheet=fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/res.php?sheet=fonts/fontawesome-webfont.woff2') format('woff2'), url('/res.php?sheet=fonts/fontawesome-webfont.woff') format('woff'), url('/res.php?sheet=fonts/fontawesome-webfont.ttf') format('truetype'), url('/res.php?sheet=fonts/fontawesome-webfont.svg') format('svg');
+            src: url('/resources?file=/fonts/fontawesome-webfont.eot');
+            src: url('/resources?file=fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/resources?file=fonts/fontawesome-webfont.woff2') format('woff2'), url('/resources?file=fonts/fontawesome-webfont.woff') format('woff'), url('/resources?file=fonts/fontawesome-webfont.ttf') format('truetype'), url('/resources?file=fonts/fontawesome-webfont.svg') format('svg');
             font-weight: normal;
             font-style: normal;
         }
           
         @font-face {
             font-family: 'FontAwesome';
-            src: url('/res.php?sheet=fonts/fontawesome-webfont.eot');
-            src: url('/res.php?sheet=fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/res.php?sheet=fonts/fontawesome-webfont.woff2') format('woff2'), url('/res.php?sheet=fonts/fontawesome-webfont.woff') format('woff'), url('/res.php?sheet=fonts/fontawesome-webfont.ttf') format('truetype'), url('/res.php?sheet=fonts/fontawesome-webfont.svg') format('svg');
+            src: url('/resources?file=fonts/fontawesome-webfont.eot');
+            src: url('/resources?file=fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/resources?file=fonts/fontawesome-webfont.woff2') format('woff2'), url('/resources?file=fonts/fontawesome-webfont.woff') format('woff'), url('/resources?file=fonts/fontawesome-webfont.ttf') format('truetype'), url('/resources?file=fonts/fontawesome-webfont.svg') format('svg');
             font-weight: normal;
             font-style: normal
         }
 
         @font-face {
             font-family: 'FontAwesome';
-            src: url('/res.php?sheet=fonts/fontawesome-webfont.eot');
-            src: url('/res.php?sheet=fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/res.php?sheet=fonts/fontawesome-webfont.woff2') format('woff2'), url('/res.php?sheet=fonts/fontawesome-webfont.woff') format('woff'), url('/res.php?sheet=fonts/fontawesome-webfont.ttf') format('truetype'), url('/res.php?sheet=fonts/fontawesome-webfont.svg') format('svg');
+            src: url('/resources?file=fonts/fontawesome-webfont.eot');
+            src: url('/resources?file=fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/resources?file=fonts/fontawesome-webfont.woff2') format('woff2'), url('/resources?file=fonts/fontawesome-webfont.woff') format('woff'), url('/resources?file=fonts/fontawesome-webfont.ttf') format('truetype'), url('/resources?file=fonts/fontawesome-webfont.svg') format('svg');
             font-weight: normal;
             font-style: normal;
         }
         
         @font-face {
             font-family: 'FontAwesome';
-            src: url('/res.php?sheet=fonts/fontawesome-webfont.eot');
-            src: url('/res.php?sheet=fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/res.php?sheet=fonts/fontawesome-webfont.woff2') format('woff2'), url('/res.php?sheet=fonts/fontawesome-webfont.woff') format('woff'), url('/res.php?sheet=fonts/fontawesome-webfont.ttf') format('truetype'), url('/res.php?sheet=fonts/fontawesome-webfont.svg') format('svg');
+            src: url('/resources?file=fonts/fontawesome-webfont.eot');
+            src: url('/resources?file=fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/resources?file=fonts/fontawesome-webfont.woff2') format('woff2'), url('/resources?file=fonts/fontawesome-webfont.woff') format('woff'), url('/resources?file=fonts/fontawesome-webfont.ttf') format('truetype'), url('/resources?file=fonts/fontawesome-webfont.svg') format('svg');
             font-weight: normal;
             font-style: normal
         }
